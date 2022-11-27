@@ -1,12 +1,13 @@
 {
   "name": "uspace_be",
   "version": "1.0.0",
+  "type": "module",
   "description": "\"# USPACE_BE\"",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server",
-    "dev": "nodemon server"
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
