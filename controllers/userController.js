@@ -1,5 +1,14 @@
 import User from "../models/User.js";
 
+export const getJoin = async (req, res) => {
+  User.find({}, function (err, result) {
+    if (err) {
+      return console.log(err);
+    } else {
+      return res.json(result);
+    }
+  });
+};
 export const postJoin = async (req, res) => {
   const { user, pwd } = req.body;
   const exists = await User.exists({ $or: [{ user }, { pwd }] });
