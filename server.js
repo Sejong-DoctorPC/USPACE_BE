@@ -13,7 +13,7 @@ app.use(cors());
 app.use("/", rootRouter);
 app.use("/users", userRouter);
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 const handleListening = () =>
   console.log(`✅ Server listenting on port http://localhost:${PORT} 🚀`);
