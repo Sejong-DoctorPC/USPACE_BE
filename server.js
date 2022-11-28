@@ -4,6 +4,7 @@ import cors from "cors";
 // Route
 import rootRouter from "./routes/rootRouter.js";
 import userRouter from "./routes/userRouter.js";
+import "./db.js";
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
