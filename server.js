@@ -5,11 +5,12 @@ import cors from "cors";
 import rootRouter from "./routes/rootRouter.js";
 import userRouter from "./routes/userRouter.js";
 import "./db.js";
+import corsOptions from "./config/corsOptions.js";
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use("/", rootRouter);
 app.use("/users", userRouter);
