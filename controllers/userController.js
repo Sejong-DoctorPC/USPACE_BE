@@ -1,5 +1,5 @@
 import User from "../models/User.js";
-import Sample from "../models/sample.js";
+import Sample from "../models/Sample.js";
 
 export const getJoin = async (req, res) => {
   User.find({}, function (err, result) {
