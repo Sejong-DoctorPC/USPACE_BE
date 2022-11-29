@@ -3,7 +3,7 @@ const allowedOrigins = [
   "http://127.0.0.1:5500",
   "http://localhost:3500",
   "http://localhost:3000",
-  "https://beamish-zuccutto-c84c40.netlify.applogin#",
+  "https://beamish-zuccutto-c84c40.netlify.app",
 ];
 
 export default allowedOrigins;
