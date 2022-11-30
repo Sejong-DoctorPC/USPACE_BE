@@ -23,6 +23,14 @@ app.use(
     credential: "true", // 사용자 인증이 필요한 리소스(쿠키 ..등) 접근
   })
 );
+app.all("/*", function (req, res, next) {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://beamish-zuccutto-c84c40.netlify.app"
+  );
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 
 app.use("/", rootRouter);
 app.use("/users", userRouter);
