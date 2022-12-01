@@ -1,16 +1,32 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+import session from "express-session";
+import MongoStore from "connect-mongo";
 // Route
 import rootRouter from "./routes/rootRouter.js";
 import userRouter from "./routes/userRouter.js";
 import "./db.js";
 import corsOptions from "./config/corsOptions.js";
 import allowedOrigins from "./config/allowedOrigins.js";
+import { localsMiddleware } from "./middlewares.js";
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(
+  session({
+    secret: "Hello!",
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({
+      mongoUrl:
+        "mongodb+srv://yonghyun:47529722@diyparking.ddqzn68.mongodb.net/?retryWrites=true&w=majority",
+    }),
+  })
+);
+
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -28,6 +44,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(localsMiddleware);
 app.use("/", rootRouter);
 app.use("/users", userRouter);
 

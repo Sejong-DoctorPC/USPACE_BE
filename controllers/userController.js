@@ -1,6 +1,5 @@
 import User from "../models/User.js";
 import Sample from "../models/Sample.js";
-import ShortUser from "../models/shortUser.js";
 
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
@@ -39,20 +38,23 @@ export const getLogin = async (req, res) => {};
 export const postLogin = async (req, res) => {
   const { user, pwd } = req.body;
 
-  const exists = await User.findOne({ user });
-  if (!exists) {
-    return res.json({ error: "User Not Found" });
+  const username = await User.findOne({ user });
+  if (!username) {
+    return res.status(400).json({ error: "User Not Found" });
   }
 
-  if (await bcrypt.compare(pwd, exists.pwd)) {
-    const token = jwt.sign({}, JWT_SECRET);
+  const ok = await bcrypt.compare(pwd, username.pwd);
 
-    if (res.status(201)) {
-      return res.json({ status: "ok", data: token });
-    } else {
-      return res.json({ error: "error" });
-    }
+  if (!ok) {
+    return res.status(400).json({ error: "Wrong password" });
   }
 
-  res.json({ status: "error", error: "Invaild Password" });
+  req.session.loggedIn = true;
+  req.seesion.user = user;
+  return res.status(200).json({ data: user, loginSuccess: true });
+};
+
+export const logout = (req, res) => {
+  req.session.destroy();
+  return res.json({ data: null });
 };
