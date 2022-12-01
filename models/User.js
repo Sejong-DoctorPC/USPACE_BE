@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     ref: "Parking",
   },
+  postAt: { type: Date, required: true, default: Date.now },
 });
 
 const User = mongoose.model("User", userSchema);

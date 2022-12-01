@@ -3,6 +3,8 @@ import {
   postJoin,
   getJoin,
   getParking,
+  getApply,
+  postApply,
 } from "../controllers/userController.js";
 
 const rootRouter = express.Router();
@@ -29,5 +31,5 @@ rootRouter.route("/").get((req, res) => {
 
 rootRouter.route("/join").post(postJoin).get(getJoin);
 rootRouter.route("/parking").get(getParking);
-
+rootRouter.route("/apply").get(getApply).post(postApply);
 export default rootRouter;

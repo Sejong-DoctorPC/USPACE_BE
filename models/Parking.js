@@ -8,7 +8,6 @@ const parkingSchema = new mongoose.Schema({
   type: { type: Number, required: true }, // 주차장 모드
   state: { type: Number, required: true }, // 주차 가능 여부(일반 and 모드)
   parker: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" }, // 누가 주차? -> User에서 가져오기
-  enterAt: { type: Date, required: true, default: Date.now }, // 언제 주차?
 });
 
 const Parking = mongoose.model("Parking", parkingSchema);

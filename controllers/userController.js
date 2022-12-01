@@ -31,3 +31,11 @@ export const getParking = async (req, res) => {
   const samples = await Sample.find({});
   return res.send(samples);
 };
+
+export const getApply = async (req, res) => {
+  return;
+};
+
+export const postApply = async (req, res) => {
+  return;
+};
