@@ -5,10 +5,9 @@ const userSchema = new mongoose.Schema({
   pwd: { type: String, required: true },
   zone: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
     ref: "Parking",
   },
-  postAt: { type: Date, required: true, default: Date.now },
+  postAt: { type: Date, default: Date.now },
 });
 
 const User = mongoose.model("User", userSchema);

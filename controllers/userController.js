@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import Sample from "../models/Sample.js";
+import ShortUser from "../models/shortUser.js";
 
 export const getJoin = async (req, res) => {
   const users = await User.find({});
@@ -16,12 +17,12 @@ export const postJoin = async (req, res) => {
   }
 
   try {
-    const newUser = await User.create({
+    const save = await ShortUser.create({
       user: user,
       pwd: pwd,
     });
     console.log("db 저장 완료~!!");
-    return res.status(201).json(newUser);
+    return res.status(201).json(save);
   } catch (error) {
     return res.status(400).json({ message: error._message });
   }
