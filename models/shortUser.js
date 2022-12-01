@@ -5,5 +5,5 @@ const shortUserSchema = new mongoose.Schema({
   pwd: { type: String, required: true },
 });
 
-const ShortUser = mongoose.model("User", shortUserSchema);
+const ShortUser = mongoose.model("ShortUser", shortUserSchema);
 export default ShortUser;
