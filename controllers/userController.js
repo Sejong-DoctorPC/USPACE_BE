@@ -2,9 +2,7 @@ import User from "../models/User.js";
 import Sample from "../models/Sample.js";
 
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-
-const JWT_SECRET = "ashdvli()haeiuhgfouq2h9834y!@#^ADFBw45hb";
+import Parking from "../models/Parking.js";
 
 export const getJoin = async (req, res) => {
   const users = await User.find({});
@@ -59,5 +57,44 @@ export const postLogin = async (req, res) => {
 
 export const logout = (req, res) => {
   req.session.destroy();
-  return res.json({ data: null });
+  return res.json({ data: null, loginSuccess: false });
+};
+
+// Admin 관리
+
+export const setMode = async (req, res) => {
+  const { mode } = req.body;
+  // 몽구스 수정
+  if (mode == 0) {
+    const updatePark = await Parking.updateMany(
+      { zone: { $gte: 0 } },
+      { type: 0 }
+    );
+  } else if (mode == 1) {
+    await Parking.updateMany({ zone: { $gte: 0 } }, { type: 1, status: 2 });
+    var j = 0;
+    for (j; j < 5; j += 2) {
+      var p = 0;
+      var num = j;
+      for (p; p < 5; p++) {
+        await Parking.findOneAndUpdate({ zone: num }, { status: 0 });
+        num += 5;
+      }
+    }
+  } else if (mode == 2) {
+    await Parking.updateMany({ zone: { $gte: 0 } }, { type: 2, status: 2 });
+    var j = 0;
+    for (j; j < 5; j += 2) {
+      var p = 0;
+      var num = j;
+      for (p; p < 5; p++) {
+        await Parking.findOneAndUpdate({ zone: num }, { status: 0 });
+        num += 5;
+      }
+    }
+  } else if (mode == 3) {
+    await Parking.updateMany({ zone: { $gte: 0 } }, { type: 3, status: 2 });
+  }
+
+  return res.status(200).json(updatePark);
 };
