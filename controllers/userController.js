@@ -44,14 +44,17 @@ export const postLogin = async (req, res) => {
   }
 
   const ok = await bcrypt.compare(pwd, username.pwd);
-
   if (!ok) {
     return res.status(400).json({ error: "Wrong password" });
   }
 
-  req.session.loggedIn = true;
-  req.seesion.user = username;
-  return res.status(200).json({ data: username, loginSuccess: true });
+  try {
+    req.session.loggedIn = true;
+    req.seesion.user = username;
+    return res.status(200).json({ data: username, loginSuccess: true });
+  } catch (error) {
+    return res.json({ message: error._message });
+  }
 };
 
 export const logout = (req, res) => {
