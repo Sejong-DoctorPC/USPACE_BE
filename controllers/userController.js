@@ -50,8 +50,8 @@ export const postLogin = async (req, res) => {
   }
 
   req.session.loggedIn = true;
-  req.seesion.user = user;
-  return res.status(200).json({ data: user, loginSuccess: true });
+  req.seesion.user = username;
+  return res.status(200).json({ data: username, loginSuccess: true });
 };
 
 export const logout = (req, res) => {

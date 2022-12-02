@@ -6,6 +6,8 @@ import {
   getLogin,
   postLogin,
 } from "../controllers/userController.js";
+import { getReserve, postReserve } from "../controllers/parkController.js";
+import { protectorMiddleware } from "../middlewares.js";
 
 const rootRouter = express.Router();
 
@@ -16,20 +18,16 @@ rootRouter.route("/").get((req, res) => {
       taste: "쓴 맛",
       type: "아이스",
     },
-    {
-      name: "라떼",
-      taste: "고소한 맛",
-      type: ["핫", "아이스"],
-    },
-    {
-      name: "말차라떼",
-      taste: "달콤한 맛",
-      type: "아이스",
-    },
   ]);
 });
 
 rootRouter.route("/join").post(postJoin).get(getJoin);
 rootRouter.route("/parking").get(getParking);
 rootRouter.route("/login").get(getLogin).post(postLogin);
+rootRouter
+  .route("/reserve")
+  .all(protectorMiddleware)
+  .get(getReserve)
+  .post(postReserve);
+
 export default rootRouter;
