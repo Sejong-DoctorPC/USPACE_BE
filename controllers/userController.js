@@ -63,36 +63,36 @@ export const logout = (req, res) => {
 // Admin 관리
 
 export const setMode = async (req, res) => {
-  const { mode } = req.body;
+  const { mode } = req.query;
   console.log(mode);
   // 몽구스 수정
   if (mode == 0) {
-    await Parking.updateMany({ zone: { $gte: 0 } }, { type: 0 });
+    await Parking.updateMany({ zone: { $gte: 0 } }, { type: 0, state: 0 });
   } else if (mode == 1) {
-    await Parking.updateMany({ zone: { $gte: 0 } }, { type: 1, status: 2 });
+    await Parking.updateMany({ zone: { $gte: 0 } }, { type: 1, state: 2 });
     var j = 0;
     for (j; j < 5; j += 2) {
       var p = 0;
       var num = j;
       for (p; p < 5; p++) {
-        await Parking.findOneAndUpdate({ zone: num }, { status: 0 });
+        await Parking.findOneAndUpdate({ zone: num }, { state: 0 });
         num += 5;
       }
     }
   } else if (mode == 2) {
-    await Parking.updateMany({ zone: { $gte: 0 } }, { type: 2, status: 2 });
+    await Parking.updateMany({ zone: { $gte: 0 } }, { type: 2, state: 2 });
     var j = 0;
     for (j; j < 5; j += 2) {
       var p = 0;
       var num = j;
       for (p; p < 5; p++) {
-        await Parking.findOneAndUpdate({ zone: num }, { status: 0 });
+        await Parking.findOneAndUpdate({ zone: num }, { state: 2 });
         num += 5;
       }
     }
   } else if (mode == 3) {
-    await Parking.updateMany({ zone: { $gte: 0 } }, { type: 3, status: 2 });
+    await Parking.updateMany({ zone: { $gte: 0 } }, { type: 3, state: 2 });
   }
 
-  return res.status(200).json(updatePark);
+  return res.status(200).send("good");
 };
