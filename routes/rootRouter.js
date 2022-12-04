@@ -29,11 +29,7 @@ rootRouter.route("/").get((req, res) => {
 rootRouter.route("/join").post(postJoin).get(getJoin);
 rootRouter.route("/parking").get(getParking);
 rootRouter.route("/login").get(getLogin).post(postLogin);
-rootRouter
-  .route("/reserve")
-  .all(protectorMiddleware)
-  .get(getReserve)
-  .post(postReserve);
+rootRouter.route("/reserve").get(getReserve).post(postReserve);
 rootRouter.get("/init", initPark);
 
 // admin 관리
