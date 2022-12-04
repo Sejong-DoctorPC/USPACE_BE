@@ -64,12 +64,10 @@ export const logout = (req, res) => {
 
 export const setMode = async (req, res) => {
   const { mode } = req.body;
+  console.log(mode);
   // 몽구스 수정
   if (mode == 0) {
-    const updatePark = await Parking.updateMany(
-      { zone: { $gte: 0 } },
-      { type: 0 }
-    );
+    await Parking.updateMany({ zone: { $gte: 0 } }, { type: 0 });
   } else if (mode == 1) {
     await Parking.updateMany({ zone: { $gte: 0 } }, { type: 1, status: 2 });
     var j = 0;

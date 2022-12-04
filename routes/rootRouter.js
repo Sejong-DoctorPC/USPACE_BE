@@ -37,5 +37,5 @@ rootRouter
 rootRouter.get("/init", initPark);
 
 // admin 관리
-rootRouter.route("/setmode").post(setMode);
+rootRouter.route("/setmode").get(setMode);
 export default rootRouter;
