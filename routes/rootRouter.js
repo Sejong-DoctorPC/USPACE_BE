@@ -10,6 +10,7 @@ import {
   getReserve,
   initPark,
   postReserve,
+  currentParking,
 } from "../controllers/parkController.js";
 import { protectorMiddleware } from "../middlewares.js";
 
@@ -30,6 +31,7 @@ rootRouter.route("/").get((req, res) => {
 rootRouter.route("/join").post(postJoin).get(getJoin);
 rootRouter.route("/login").get(getLogin).post(postLogin);
 rootRouter.route("/reserve").get(getReserve).post(postReserve);
+rootRouter.route("/current").get(currentParking);
 rootRouter.get("/init", initPark);
 rootRouter.get("/newinit", async (req, res) => {
   try {

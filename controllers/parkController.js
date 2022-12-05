@@ -69,6 +69,27 @@ export const postReserve = async (req, res) => {
   return;
 };
 
+export const currentParking = async (req, res) => {
+  try {
+    const datas = await Parking.find({});
+    let current = [];
+
+    for (var i = 0; i < 36; i++) {
+      let obj = {
+        zone: datas[i].zone,
+        state: datas[i].state,
+        parker: datas[i].parker,
+        enterAt: datas[i].enterAt,
+      };
+      current.push(obj);
+    }
+
+    return res.send(current);
+  } catch (error) {
+    return res.send("server-error");
+  }
+};
+
 var i;
 export const initPark = async (req, res) => {
   try {
