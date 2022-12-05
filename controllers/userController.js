@@ -1,5 +1,4 @@
 import User from "../models/User.js";
-import Sample from "../models/Sample.js";
 
 import bcrypt from "bcrypt";
 import Parking from "../models/Parking.js";
@@ -24,11 +23,6 @@ export const postJoin = async (req, res) => {
   } catch (error) {
     return res.status(400).json({ message: error._message });
   }
-};
-
-export const getParking = async (req, res) => {
-  const samples = await Sample.find({});
-  return res.send(samples);
 };
 
 export const getLogin = async (req, res) => {};

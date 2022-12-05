@@ -62,7 +62,7 @@ export const getReserve = async (req, res) => {
     }
   }
 
-  return res.status(200).send([{ zone: parkingZone }]);
+  return res.status(200).json({ zone: parkingZone });
 };
 
 export const postReserve = async (req, res) => {
@@ -73,6 +73,7 @@ var i;
 export const initPark = async (req, res) => {
   try {
     for (i = 1; i <= 36; i++) {
+      console.log(i);
       var save = await Parking.create({
         zone: i,
         type: 0,
@@ -80,6 +81,10 @@ export const initPark = async (req, res) => {
         parker: null,
       });
     }
+
+    Parking.find({}, (err, res) => {
+      console.log(res);
+    });
     return res.status(201).json(save);
   } catch (error) {
     return res.status(400).json({ message: error._message });

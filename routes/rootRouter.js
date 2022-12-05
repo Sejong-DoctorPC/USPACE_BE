@@ -2,7 +2,6 @@ import express from "express";
 import {
   postJoin,
   getJoin,
-  getParking,
   getLogin,
   postLogin,
   setMode,
@@ -13,6 +12,8 @@ import {
   postReserve,
 } from "../controllers/parkController.js";
 import { protectorMiddleware } from "../middlewares.js";
+
+import Parking from "../models/Time.js";
 
 const rootRouter = express.Router();
 
@@ -27,10 +28,17 @@ rootRouter.route("/").get((req, res) => {
 });
 
 rootRouter.route("/join").post(postJoin).get(getJoin);
-rootRouter.route("/parking").get(getParking);
 rootRouter.route("/login").get(getLogin).post(postLogin);
 rootRouter.route("/reserve").get(getReserve).post(postReserve);
 rootRouter.get("/init", initPark);
+rootRouter.get("/newinit", async (req, res) => {
+  try {
+    var save = await Parking.create({});
+    return res.status(201).json(save);
+  } catch (error) {
+    return res.status(400).json({ message: error._message });
+  }
+});
 
 // admin 관리
 rootRouter.route("/setmode").get(setMode);
