@@ -54,9 +54,10 @@ export const getReserve = async (req, res) => {
     if (hashCarNum[0] === carNum) {
       const hashParker = hashTable.table[idx][1];
       parkingZone = idx;
+      const newTime = new Date();
       await Parking.findOneAndUpdate(
         { zone: idx },
-        { state: 1, parker: hashParker }
+        { state: 1, parker: hashParker, enterAt: newTime }
       );
       break;
     }
@@ -97,7 +98,6 @@ export const getGetOut = async (req, res) => {
   const enterTime = find.enterAt;
   const diffTime = getOutTime.getTime() - enterTime.getTime();
   const diffMin = diffTime / (60 * 1000);
-  await Parking.updateMany({ parker: user }, { state: 0, parker: null });
 
   let resFee = 0;
 
@@ -107,6 +107,11 @@ export const getGetOut = async (req, res) => {
     let times = diffMin / 10;
     resFee = 1000 * times;
   }
+
+  await Parking.updateMany(
+    { parker: user },
+    { state: 0, parker: null, enterAt: null }
+  );
   return res.status(200).json({ time: diffMin, fee: resFee });
 };
 
@@ -115,12 +120,12 @@ export const initPark = async (req, res) => {
   try {
     for (i = 1; i <= 36; i++) {
       console.log(i);
-      await Parking.Create({
+      Parking.Create({
         zone: i,
         type: 0,
         state: 0,
         parker: null,
-        enterAt: Date.now,
+        enterAt: null,
       });
     }
 
