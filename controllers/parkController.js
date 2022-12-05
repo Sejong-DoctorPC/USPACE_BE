@@ -66,10 +66,6 @@ export const getReserve = async (req, res) => {
   return res.status(200).json({ zone: parkingZone });
 };
 
-export const postReserve = async (req, res) => {
-  return;
-};
-
 export const currentParking = async (req, res) => {
   try {
     const datas = await Parking.find({});

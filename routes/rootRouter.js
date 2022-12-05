@@ -9,7 +9,6 @@ import {
 import {
   getReserve,
   initPark,
-  postReserve,
   currentParking,
   getGetOut,
 } from "../controllers/parkController.js";
@@ -32,7 +31,7 @@ rootRouter.route("/").get((req, res) => {
 rootRouter.route("/join").post(postJoin).get(getJoin);
 rootRouter.route("/login").get(getLogin).post(postLogin);
 // 예약(입차)
-rootRouter.route("/reserve").get(getReserve).post(postReserve);
+rootRouter.route("/reserve").get(getReserve);
 // 현재 주차 현황 확인
 rootRouter.route("/current").get(currentParking);
 // 출차
