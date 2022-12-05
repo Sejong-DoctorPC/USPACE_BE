@@ -5,7 +5,7 @@ const parkingSchema = new mongoose.Schema({
   zone: { type: Number, required: true, unique: true }, // 주차장 구역
   type: { type: Number, required: true }, // 주차장 모드
   state: { type: Number, required: true }, // 주차 가능 여부(일반 and 모드)
-  enterAt: { type: Date, required: true, unique: true, default: Date.now },
+  enterAt: { type: Date, required: true },
   parker: { type: String },
 
   //parker: { type: mongoose.Schema.Types.ObjectId, ref: "User" },

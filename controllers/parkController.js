@@ -90,16 +90,37 @@ export const currentParking = async (req, res) => {
   }
 };
 
+export const getGetOut = async (req, res) => {
+  const { user } = req.query;
+  const getOutTime = new Date();
+  const find = await Parking.findOne({ parker: user });
+  const enterTime = find.enterAt;
+  const diffTime = getOutTime.getTime() - enterTime.getTime();
+  const diffMin = diffTime / (60 * 1000);
+  await Parking.updateMany({ parker: user }, { state: 0, parker: null });
+
+  let resFee = 0;
+
+  if (diffMin < 10) {
+    resFee = 0;
+  } else {
+    let times = diffMin / 10;
+    resFee = 1000 * times;
+  }
+  return res.status(200).json({ time: diffMin, fee: resFee });
+};
+
 var i;
 export const initPark = async (req, res) => {
   try {
     for (i = 1; i <= 36; i++) {
       console.log(i);
-      var save = await Parking.create({
+      await Parking.Create({
         zone: i,
         type: 0,
         state: 0,
         parker: null,
+        enterAt: Date.now,
       });
     }
 

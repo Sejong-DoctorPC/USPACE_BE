@@ -61,7 +61,10 @@ export const setMode = async (req, res) => {
   console.log(mode);
   // 몽구스 수정
   if (mode == 0) {
-    await Parking.updateMany({ zone: { $gte: 0 } }, { type: 0, state: 0 });
+    await Parking.updateMany(
+      { zone: { $gte: 0 } },
+      { type: 0, state: 0, parker: null }
+    );
   } else if (mode == 1) {
     await Parking.updateMany({ zone: { $gte: 0 } }, { type: 1, state: 2 });
     var j = 0;

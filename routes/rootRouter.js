@@ -11,6 +11,7 @@ import {
   initPark,
   postReserve,
   currentParking,
+  getGetOut,
 } from "../controllers/parkController.js";
 import { protectorMiddleware } from "../middlewares.js";
 
@@ -30,8 +31,15 @@ rootRouter.route("/").get((req, res) => {
 
 rootRouter.route("/join").post(postJoin).get(getJoin);
 rootRouter.route("/login").get(getLogin).post(postLogin);
+// 예약(입차)
 rootRouter.route("/reserve").get(getReserve).post(postReserve);
+// 현재 주차 현황 확인
 rootRouter.route("/current").get(currentParking);
+// 출차
+rootRouter.route("/getout").get(getGetOut);
+
+// admin 관리
+rootRouter.route("/setmode").get(setMode);
 rootRouter.get("/init", initPark);
 rootRouter.get("/newinit", async (req, res) => {
   try {
@@ -42,6 +50,4 @@ rootRouter.get("/newinit", async (req, res) => {
   }
 });
 
-// admin 관리
-rootRouter.route("/setmode").get(setMode);
 export default rootRouter;
