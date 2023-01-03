@@ -1,5 +1,5 @@
 # USPACE Back end
-## 주소
+## 주소 (현재는 작동 안됨.)
 https://sejong-uspace.herokuapp.com/
 ## 스택
 * Backend: Nodejs, express
